@@ -21,8 +21,7 @@ if [ "$choice" = "s" ]; then
           addresses:
             - $new_ip/$netmask
           nameservers:
-              addresses: 
-                - [8.8.8.8]
+              addresses: [8.8.8.8]
               search: []
           routes:
           -   to: default
