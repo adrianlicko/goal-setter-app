@@ -1,3 +1,4 @@
+# Presun z priecinku scripts do priecinka Goal Setter app
 cd ..
 cd 'Goal Setter app'
 
@@ -12,4 +13,5 @@ npm install
 npm run build
 
 # Spustenie celej aplikacie
+cd .. # Presun do priecinka Goal Setter app z priecinka frontend
 npm start
