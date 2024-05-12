@@ -10,6 +10,9 @@ if [ "$choice" = "s" ]; then
     echo "Zadajte novú sieťovú masku (napr., 24):"
     read netmask
 
+    echo "Zadajte bránu:"
+    read gateway
+
     sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
 
     echo "network:
@@ -18,7 +21,12 @@ if [ "$choice" = "s" ]; then
           addresses:
             - $new_ip/$netmask
           nameservers:
-              addresses: [8.8.8.8]
+              addresses: 
+                - [8.8.8.8]
+              search: []
+          routes:
+          -   to: default
+              via: $gateway
       version: 2" | sudo tee /etc/netplan/50-cloud-init.yaml > /dev/null
 
     sudo netplan apply
