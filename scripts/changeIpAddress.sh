@@ -1,26 +1,25 @@
 #!/bin/bash
 
-# Získajte novú IP adresu od používateľa
 echo "Zadajte novú IP adresu:"
-read ip_address
+read new_ip
 
-# Získajte novú masku podsiete od používateľa
-echo "Zadajte novú masku podsiete:"
+echo "Zadajte novú sieťovú masku (napr., 24):"
 read netmask
 
-# Predpokladáme, že sieťové rozhranie je eth0. Ak máte iné rozhranie, zmeňte to tu.
-network_interface="eth0"
+# Zálohovanie pôvodného konfiguračného súboru netplan
+sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
 
-# Vytvorte konfiguračný súbor pre netplan
+# Zápis novej IP konfigurácie do konfiguračného súboru netplan
 echo "network:
-  version: 2
-  renderer: networkd
   ethernets:
-    $network_interface:
-      dhcp4: no
-      addresses: [$ip_address/$netmask]" | sudo tee /etc/netplan/01-netcfg.yaml > /dev/null
+    enp0s3:
+      addresses:
+        - $new_ip/$netmask
+      nameservers:
+          addresses: [8.8.8.8]
+  version: 2" | sudo tee /etc/netplan/50-cloud-init.yaml > /dev/null
 
-# Aplikujte novú konfiguráciu
+# Použitie novej konfigurácie netplan
 sudo netplan apply
 
-echo "IP adresa a maska podsiete boli úspešne zmenené."
+echo "IP adresa bola úspešne zmenená."
