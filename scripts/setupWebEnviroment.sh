@@ -1,6 +1,12 @@
 sudo apt install nodejs -y
 sudo apt install npm -y
 
+# Instalacia PM2
+sudo npm install -g pm2
+
+# Instalacia NGINX
+sudo apt install nginx
+
 # Presun z priecinku scripts do priecinka Goal Setter app
 cd ..
 cd 'Goal Setter app'
