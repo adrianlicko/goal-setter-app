@@ -1,4 +1,4 @@
-sudo apt install nodejs
+sudo apt install nodejs -y
 
 # Presun z priecinku scripts do priecinka Goal Setter app
 cd ..
